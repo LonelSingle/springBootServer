@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szh.dao.StudentMapper">
+  <resultMap id="BaseResultMap" type="com.szh.model.Student">
+    <id column="stuid" jdbcType="VARCHAR" property="stuid" />
+    <result column="stuname" jdbcType="VARCHAR" property="stuname" />
+    <result column="stusex" jdbcType="BIT" property="stusex" />
+    <result column="stubirth" jdbcType="TIMESTAMP" property="stubirth" />
+    <result column="stutel" jdbcType="CHAR" property="stutel" />
+    <result column="stuaddr" jdbcType="VARCHAR" property="stuaddr" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.szh.model.Student">
+    <result column="stuphoto" jdbcType="LONGVARBINARY" property="stuphoto" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stuid, stuname, stusex, stubirth, stutel, stuaddr, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    stuphoto
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbstudent
+    where stuid = #{stuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tbstudent
+    where stuid = #{stuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.szh.model.Student">
+    insert into tbstudent (stuid, stuname, stusex, 
+      stubirth, stutel, stuaddr, 
+      create_time, update_time, stuphoto
+      )
+    values (#{stuid,jdbcType=VARCHAR}, #{stuname,jdbcType=VARCHAR}, #{stusex,jdbcType=BIT}, 
+      #{stubirth,jdbcType=TIMESTAMP}, #{stutel,jdbcType=CHAR}, #{stuaddr,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{stuphoto,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.szh.model.Student">
+    insert into tbstudent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuid != null">
+        stuid,
+      </if>
+      <if test="stuname != null">
+        stuname,
+      </if>
+      <if test="stusex != null">
+        stusex,
+      </if>
+      <if test="stubirth != null">
+        stubirth,
+      </if>
+      <if test="stutel != null">
+        stutel,
+      </if>
+      <if test="stuaddr != null">
+        stuaddr,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="stuphoto != null">
+        stuphoto,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuid != null">
+        #{stuid,jdbcType=VARCHAR},
+      </if>
+      <if test="stuname != null">
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null">
+        #{stusex,jdbcType=BIT},
+      </if>
+      <if test="stubirth != null">
+        #{stubirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stutel != null">
+        #{stutel,jdbcType=CHAR},
+      </if>
+      <if test="stuaddr != null">
+        #{stuaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuphoto != null">
+        #{stuphoto,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.szh.model.Student">
+    update tbstudent
+    <set>
+      <if test="stuname != null">
+        stuname = #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null">
+        stusex = #{stusex,jdbcType=BIT},
+      </if>
+      <if test="stubirth != null">
+        stubirth = #{stubirth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stutel != null">
+        stutel = #{stutel,jdbcType=CHAR},
+      </if>
+      <if test="stuaddr != null">
+        stuaddr = #{stuaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuphoto != null">
+        stuphoto = #{stuphoto,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where stuid = #{stuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.szh.model.Student">
+    update tbstudent
+    set stuname = #{stuname,jdbcType=VARCHAR},
+      stusex = #{stusex,jdbcType=BIT},
+      stubirth = #{stubirth,jdbcType=TIMESTAMP},
+      stutel = #{stutel,jdbcType=CHAR},
+      stuaddr = #{stuaddr,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      stuphoto = #{stuphoto,jdbcType=LONGVARBINARY}
+    where stuid = #{stuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.szh.model.Student">
+    update tbstudent
+    set stuname = #{stuname,jdbcType=VARCHAR},
+      stusex = #{stusex,jdbcType=BIT},
+      stubirth = #{stubirth,jdbcType=TIMESTAMP},
+      stutel = #{stutel,jdbcType=CHAR},
+      stuaddr = #{stuaddr,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where stuid = #{stuid,jdbcType=VARCHAR}
+  </update>
+  <select id="login" resultType="com.szh.model.Student">
+     select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbstudent
+    where stuname = #{stuname,jdbcType=VARCHAR} and stutel  = #{stutel,jdbcType=VARCHAR}
+  </select>
+</mapper>
